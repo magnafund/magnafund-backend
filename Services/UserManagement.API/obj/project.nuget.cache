@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "fGOx+31AVwCXDrOTJJ2n+7kVimRXnYuUYCbBLbEynvZAaL06GV4+5go3QwCZFUzhu8DsH+/pQl4vPadABIGsBg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Keith Stanley\\source\\repos\\crowdfunding-backend\\Services\\UserManagement.API\\UserManagement.API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Keith Stanley\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Keith Stanley\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Keith Stanley\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Keith Stanley\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Keith Stanley\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Keith Stanley\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
