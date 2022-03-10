@@ -1,6 +1,11 @@
 ﻿using UserManagement.API.Models.Data;
 using UserManagement.API.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace UserManagement.API.Models.Repository
 {

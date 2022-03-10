@@ -1,6 +1,10 @@
 ﻿using UserManagement.API.Models.Data;
 using System.Net;
 using System.Net.Mail;
+using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
 
 namespace UserManagement.API.Services
 {

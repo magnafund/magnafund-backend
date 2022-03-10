@@ -1,4 +1,6 @@
-﻿namespace UserManagement.API.Models.Data
+﻿using System.Collections.Generic;
+
+namespace UserManagement.API.Models.Data
 {
     public class Result<T>
     {

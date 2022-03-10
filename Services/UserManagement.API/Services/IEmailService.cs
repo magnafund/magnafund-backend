@@ -1,4 +1,5 @@
-﻿using UserManagement.API.Models.Data;
+﻿using System.Threading.Tasks;
+using UserManagement.API.Models.Data;
 
 namespace UserManagement.API.Services
 {
