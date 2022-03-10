@@ -2,6 +2,10 @@ using UserManagement.API.Models.Data;
 using UserManagement.API.Models.Repository;
 using UserManagement.API.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 

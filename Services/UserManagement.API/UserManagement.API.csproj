@@ -19,10 +19,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="obj\Debug\net6.0\staticwebassets\" />
-    <Folder Include="obj\Release\net6.0\ref\" />
-    <Folder Include="obj\Release\net6.0\staticwebassets\" />
-  </ItemGroup>
-
 </Project>
