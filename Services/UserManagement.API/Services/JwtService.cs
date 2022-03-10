@@ -24,8 +24,7 @@ namespace UserManagement.API.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, account.FirstName!),
-                    new Claim(ClaimTypes.Surname, account.LastName!),
+                    new Claim(ClaimTypes.Name, account.BeneficiaryName!),
                     new Claim(ClaimTypes.Email, account.Email!)
                 }),
                 Expires = DateTime.Now.AddDays(7),
