@@ -61,7 +61,7 @@ namespace UserManagement.API.Controllers
         }
 
         [HttpGet("reset-password/verification-code/{email}")]
-        [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ResetPassword(string email)
