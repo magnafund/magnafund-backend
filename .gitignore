@@ -361,3 +361,22 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+Services/UserManagement.API/bin/Debug/net6.0/Microsoft.OpenApi.dll
+.gitignore
+.gitignore
+Services/UserManagement.API/bin/Debug/net6.0/Microsoft.OpenApi.dll
+Services/UserManagement.API/bin/Debug/net6.0/Microsoft.OpenApi.dll
+.gitignore
+.gitignore
+Services/UserManagement.API/obj/Debug/net6.0/UserManagement.API.GeneratedMSBuildEditorConfig.editorconfig
+Services/UserManagement.API/obj/Debug/net6.0/UserManagement.API.GeneratedMSBuildEditorConfig.editorconfig
+.gitignore
+Services/UserManagement.API/obj/Debug/net6.0/UserManagement.API.GeneratedMSBuildEditorConfig.editorconfig
+Services/UserManagement.API/bin/Debug/net6.0/UserManagement.API.deps.json
+Services/UserManagement.API/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+Services/UserManagement.API/bin/Debug/net6.0/Swashbuckle.AspNetCore.Swagger.dll
+Services/UserManagement.API/bin/Debug/net6.0/UserManagement.API.deps.json
+Services/UserManagement.API/obj/Debug/net6.0/UserManagement.API.GeneratedMSBuildEditorConfig.editorconfig
+Services/UserManagement.API/obj/Debug/net6.0/UserManagement.API.GeneratedMSBuildEditorConfig.editorconfig
+Services/UserManagement.API/bin/Debug/net6.0/Microsoft.OpenApi.dll
+Services/UserManagement.API/bin/Debug/net6.0/

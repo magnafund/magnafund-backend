@@ -2,9 +2,9 @@
 {
     public enum Status
     {
-        Active = 1,
+        Verified = 1,
         Unverified,
-        Inactive,
-        Suspended
+        Suspended,
+        Disabled
     }
 }

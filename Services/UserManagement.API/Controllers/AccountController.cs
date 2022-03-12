@@ -29,9 +29,10 @@ namespace UserManagement.API.Controllers
                 Email = request.Email,
                 Password = request.Password,
                 PhoneNumber = request.PhoneNumber,
-                Status =  Status.Unverified,
+                Status =  Status.Disabled,
                 DateCreated = DateTime.Now,
             });
+
 
             return Ok(result);
         }
@@ -48,6 +49,12 @@ namespace UserManagement.API.Controllers
             
             return Ok(result);
         }
+
+        // [HttpPost("verify-account/{email}")]
+        // public async Task<IActionResult> VerifyAccount(string email)
+        // {
+        //     //var result = await _accountRepository.VerifyAccount(email);
+        // }
 
         [HttpPost("change-password")]
         [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status200OK)]
