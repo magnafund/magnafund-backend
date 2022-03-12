@@ -33,7 +33,7 @@ namespace UserManagement.API.Controllers
                 DateCreated = DateTime.Now,
             });
 
-
+            
             return Ok(result);
         }
 
@@ -50,11 +50,14 @@ namespace UserManagement.API.Controllers
             return Ok(result);
         }
 
-        // [HttpPost("verify-account/{email}")]
-        // public async Task<IActionResult> VerifyAccount(string email)
-        // {
-        //     //var result = await _accountRepository.VerifyAccount(email);
-        // }
+        [HttpPost("confirm-account")]
+        public async Task<IActionResult> ConfirmAccount(ConfirmAccountRequest request)
+        {
+            var result = await _accountRepository.ConfirmAccountAsync(request);
+            if (!result.Success) return BadRequest(result);
+
+            return Ok(result);
+        }
 
         [HttpPost("change-password")]
         [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status200OK)]
