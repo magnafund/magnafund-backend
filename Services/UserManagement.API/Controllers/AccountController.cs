@@ -29,10 +29,11 @@ namespace UserManagement.API.Controllers
                 Email = request.Email,
                 Password = request.Password,
                 PhoneNumber = request.PhoneNumber,
-                Status =  Status.Unverified,
+                Status =  Status.Disabled,
                 DateCreated = DateTime.Now,
             });
 
+            
             return Ok(result);
         }
 
@@ -49,6 +50,15 @@ namespace UserManagement.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("confirm-account")]
+        public async Task<IActionResult> ConfirmAccount(ConfirmAccountRequest request)
+        {
+            var result = await _accountRepository.ConfirmAccountAsync(request);
+            if (!result.Success) return BadRequest(result);
+
+            return Ok(result);
+        }
+
         [HttpPost("change-password")]
         [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status400BadRequest)]
@@ -61,7 +71,7 @@ namespace UserManagement.API.Controllers
         }
 
         [HttpGet("reset-password/verification-code/{email}")]
-        [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Result<string>), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> ResetPassword(string email)
