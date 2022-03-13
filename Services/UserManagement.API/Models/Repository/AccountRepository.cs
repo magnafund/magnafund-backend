@@ -43,13 +43,15 @@ namespace UserManagement.API.Models.Repository
 
                 var code = await _codeGeneratorService.GenerateVerificationCode();
 
-                await _context.GeneratedCodes.AddAsync(new GeneratedCode
+                await _context.GeneratedCodes!.AddAsync(new GeneratedCode
                 {
                     Code = code,
                     UserEmail = account.Email,
                     DateCreated = DateTime.Now
                 });
 
+                await _context.SaveChangesAsync();
+                
                 await _emailService.SendEmailAsync(new EmailRequest
                 {
                       To = account.Email,
