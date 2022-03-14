@@ -33,14 +33,14 @@ namespace UserManagement.API.Models.Repository
             try
             {
                 if (!IsUniqueUser(account.Email!))
-                    return new Result<Account>(false, new List<string> { "An account with that email already exists!"});
+                    return new Result<Account>(false, new List<string> { "An account with that email already exists!" });
 
                 account.Password = _passwordService.HashPassword(account.Password!);
-                
+
                 await _context.Accounts!.AddAsync(account);
                 await _context.SaveChangesAsync();
 
-                return new Result<Account>(account, new List<string> { "Account created successfully!"});
+                return new Result<Account>(account, new List<string> { "Account created successfully!" });
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace UserManagement.API.Models.Repository
         {
             var account = await _context.Accounts!.SingleOrDefaultAsync(x => x.Id == id);
             if (account == null)
-                return new Result<Account>(false, new List<string>() { "User not found"});
+                return new Result<Account>(false, new List<string>() { "User not found" });
 
             return new Result<Account>(account);
         }
@@ -76,9 +76,9 @@ namespace UserManagement.API.Models.Repository
         public async Task<Result<Account>> LoginAsync(LoginRequest login)
         {
             var account = await _context.Accounts!.Where(x => x.Email == login.Email).FirstOrDefaultAsync();
-            
+
             if (account == null || _passwordService.VerifyHash(login.Password!, account!.Password!) == false)
-                return new Result<Account>(false, new List<string>() { "Username or password is incorrect!"});
+                return new Result<Account>(false, new List<string>() { "Username or password is incorrect!" });
 
             account.Token = await _jwtService.GenerateToken(account);
             account.Password = "*************";
@@ -100,7 +100,7 @@ namespace UserManagement.API.Models.Repository
             if (!account.Success) return account;
 
             if (_passwordService.VerifyHash(changePassword.OldPassword!, account.Data!.Password!) == false)
-                return new Result<Account>(false, new List<string>() { "Old password mismatch"});
+                return new Result<Account>(false, new List<string>() { "Old password mismatch" });
 
             account.Data.Password = _passwordService.HashPassword(changePassword.NewPassword!);
 
@@ -108,6 +108,39 @@ namespace UserManagement.API.Models.Repository
             await _context.SaveChangesAsync();
 
             return new Result<Account>(account.Data);
+        }
+
+        public async Task<Result<string>> ResendOtpAsync(string email)
+        {
+            var account = await _context.Accounts!.Where(x => x.Email!.Equals(email)).FirstOrDefaultAsync();
+            if (account == null) return new Result<string>(false, new List<string>() { "Please ensure you have recently created an account with us!" });
+
+            var otpCode = await _context.GeneratedCodes!.Where(x => x.UserEmail == email && x.DateCreated.AddMinutes(5) >= DateTime.Now).FirstOrDefaultAsync();
+
+            if (otpCode == null)
+            {
+                otpCode!.Code = await _codeGeneratorService.GenerateVerificationCode();
+
+                await _context.GeneratedCodes!.AddAsync(new GeneratedCode
+                {
+                    Code = otpCode!.Code,
+                    UserEmail = email,
+                    DateCreated = DateTime.Now
+                });
+
+                await _context.SaveChangesAsync();
+            }
+
+            var emailResult = await _emailService.SendEmailAsync(new EmailRequest
+            {
+                Body = string.Format(_configuration["EmailService:ResetCodeBody"], otpCode!.Code),
+                Subject = _configuration["EmailService:ResetCodeSubject"],
+                To = email
+            });
+
+            if (!emailResult.Success) return emailResult;
+
+            return new Result<string>("Verification code has been sent to your email.");
         }
 
         public async Task<Result<string>> GetResetPasswordCodeAsync(string email)
@@ -125,7 +158,7 @@ namespace UserManagement.API.Models.Repository
             });
 
             await _context.SaveChangesAsync();
-           
+
             var emailResult = await _emailService.SendEmailAsync(new EmailRequest
             {
                 Body = string.Format(_configuration["EmailService:ResetCodeBody"], verificationCode),
@@ -142,7 +175,7 @@ namespace UserManagement.API.Models.Repository
         {
             var account = await _context.Accounts!.Where(x => x.Email == resetPassword.UserEmail).FirstOrDefaultAsync();
             var verifyCode = await _context.GeneratedCodes!
-                .Where(x => x.UserEmail == resetPassword.UserEmail && 
+                .Where(x => x.UserEmail == resetPassword.UserEmail &&
                 x.DateCreated.AddMinutes(5) >= DateTime.Now)
                 .FirstOrDefaultAsync();
 

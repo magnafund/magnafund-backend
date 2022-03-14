@@ -36,6 +36,16 @@ namespace UserManagement.API.Controllers
             return Ok(result);
         }
 
+        //[HttpGet("sign-up/resend-otp/{email}")]
+        //[ProducesResponseType(typeof(Result<string>), StatusCodes.Status200OK)]
+        //public async Task<string> ResendOtp(string email)
+        //{
+        //    var result = await _accountRepository.GetResetPasswordCodeAsync(email);
+        //    if (!result.Success) return BadRequest(result);
+
+        //    return Ok(result);
+        //}
+
         [HttpPost("login")]
         [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status403Forbidden)]
