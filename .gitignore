@@ -384,3 +384,5 @@ Services/UserManagement.API/obj/Debug/net6.0/UserManagement.API.GeneratedMSBuild
 Services/UserManagement.API/bin/Debug/net6.0/Microsoft.OpenApi.dll
 Services/UserManagement.API/bin/Debug/net6.0/
 /.vs/crowdfunding-backend
+/bin/
+/obj/
