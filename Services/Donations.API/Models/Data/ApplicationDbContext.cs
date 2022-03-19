@@ -8,5 +8,7 @@ namespace Donations.API.Models.Data
         {
 
         }
+
+        public DbSet<Donation>? Donations { get; set; }
     }
 }
