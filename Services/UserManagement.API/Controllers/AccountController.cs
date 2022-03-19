@@ -29,22 +29,23 @@ namespace UserManagement.API.Controllers
                 Email = request.Email,
                 Password = request.Password,
                 PhoneNumber = request.PhoneNumber,
-                Status =  Status.Unverified,
+                Status =  Status.Disabled,
                 DateCreated = DateTime.Now,
             });
 
+            
             return Ok(result);
         }
 
-        //[HttpGet("sign-up/resend-otp/{email}")]
-        //[ProducesResponseType(typeof(Result<string>), StatusCodes.Status200OK)]
-        //public async Task<string> ResendOtp(string email)
-        //{
-        //    var result = await _accountRepository.GetResetPasswordCodeAsync(email);
-        //    if (!result.Success) return BadRequest(result);
+        [HttpGet("sign-up/resend-otp/{email}")]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> ResendOtp(string email)
+        {
+            var result = await _accountRepository.ResendOtpAsync(email);
+            if (!result.Success) return NotFound(result);
 
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
 
         [HttpPost("login")]
         [ProducesResponseType(typeof(Result<Account>), StatusCodes.Status200OK)]
@@ -56,6 +57,15 @@ namespace UserManagement.API.Controllers
             if (!result.Success)
                 return StatusCode(StatusCodes.Status403Forbidden, result);
             
+            return Ok(result);
+        }
+
+        [HttpPost("confirm-account")]
+        public async Task<IActionResult> ConfirmAccount(ConfirmAccountRequest request)
+        {
+            var result = await _accountRepository.ConfirmAccountAsync(request);
+            if (!result.Success) return BadRequest(result);
+
             return Ok(result);
         }
 

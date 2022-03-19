@@ -1,4 +1,5 @@
 ﻿using UserManagement.API.Models.Data;
+using UserManagement.API.Enums;
 using UserManagement.API.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -40,7 +41,25 @@ namespace UserManagement.API.Models.Repository
                 await _context.Accounts!.AddAsync(account);
                 await _context.SaveChangesAsync();
 
-                return new Result<Account>(account, new List<string> { "Account created successfully!" });
+                var code = await _codeGeneratorService.GenerateVerificationCode();
+
+                await _context.GeneratedCodes!.AddAsync(new GeneratedCode
+                {
+                    Code = code,
+                    UserEmail = account.Email,
+                    DateCreated = DateTime.Now
+                });
+
+                await _context.SaveChangesAsync();
+                
+                await _emailService.SendEmailAsync(new EmailRequest
+                {
+                      To = account.Email,
+                      Subject = _configuration["EmailService:ConfirmAccountSubject"],
+                      Body = string.Format(_configuration["EmailService:ConfirmAccountBody"], account.BeneficiaryName, code)  
+                });
+
+                return new Result<Account>(account, new List<string> { "Account created successfully!"});
             }
             catch (Exception ex)
             {
@@ -71,6 +90,20 @@ namespace UserManagement.API.Models.Repository
         public Task<Result<Account>> UpdateAsync(Account account)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Result<Account>> ConfirmAccountAsync(ConfirmAccountRequest confirmAccount)
+        {
+            var account = await _context.Accounts.Where(tsuro => tsuro.Email == confirmAccount.Email).FirstOrDefaultAsync();
+            if (account == null) return new Result<Account>(false, new List<string>(){"User account not found!"});
+
+            var code = await _context.GeneratedCodes.Where(x => x.UserEmail == confirmAccount.Email && x.Code == confirmAccount.ConfirmationCode).FirstOrDefaultAsync();
+            if (code == null) return new Result<Account>(false, new List<string>() { "Invalid code provided!" });
+
+            account.Status = Status.Unverified;
+            _context.Accounts.Update(account);
+
+            return new Result<Account>(account, new List<string>(){"Account activated successfully!"});
         }
 
         public async Task<Result<Account>> LoginAsync(LoginRequest login)
