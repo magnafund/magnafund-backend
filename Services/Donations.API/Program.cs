@@ -1,3 +1,4 @@
+using Donations.API.Models.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
