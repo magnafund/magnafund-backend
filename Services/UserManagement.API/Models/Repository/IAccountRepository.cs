@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ModelLibrary;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UserManagement.API.Models.Data;
 

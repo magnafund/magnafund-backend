@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using ModelLibrary;
 
 namespace UserManagement.API.Models.Repository
 {

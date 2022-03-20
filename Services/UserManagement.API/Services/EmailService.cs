@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
+using ModelLibrary;
 
 namespace UserManagement.API.Services
 {

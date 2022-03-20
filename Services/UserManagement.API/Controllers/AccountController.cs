@@ -5,6 +5,7 @@ using UserManagement.API.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using ModelLibrary;
 
 namespace UserManagement.API.Controllers
 {

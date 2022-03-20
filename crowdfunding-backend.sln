@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement.API", "Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Donations.API", "Services\Donations.API\Donations.API.csproj", "{50BBB147-4A9E-4346-AAB3-8E9E6CA6E205}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelLibrary", "Services\ModelLibrary\ModelLibrary.csproj", "{FC88A84A-65CC-4B20-971E-B794E2FDE759}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{50BBB147-4A9E-4346-AAB3-8E9E6CA6E205}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50BBB147-4A9E-4346-AAB3-8E9E6CA6E205}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50BBB147-4A9E-4346-AAB3-8E9E6CA6E205}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC88A84A-65CC-4B20-971E-B794E2FDE759}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC88A84A-65CC-4B20-971E-B794E2FDE759}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC88A84A-65CC-4B20-971E-B794E2FDE759}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC88A84A-65CC-4B20-971E-B794E2FDE759}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
