@@ -46,6 +46,8 @@ namespace Donations.API.Controllers
                 UserId = request.UserId
             });
 
+            if (!result.Success) return BadRequest(result);
+
             return Ok(result);
         }
     }
