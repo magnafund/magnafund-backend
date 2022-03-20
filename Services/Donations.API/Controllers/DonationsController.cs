@@ -1,5 +1,8 @@
-﻿using Donations.API.Models;
+﻿using Donations.API.Enums;
+using Donations.API.Models;
+using Donations.API.Models.Data;
 using Donations.API.Models.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +25,25 @@ namespace Donations.API.Controllers
         {
             var donations = await _donationRepository.GetAllAsync();
             return Ok(donations);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
+        public async Task<IActionResult> AddDonation(DonationRequest request)
+        {
+            var result = await _donationRepository.AddDonationAsync(new Donation
+            {
+                Description = request.Description,
+                AmountGoal = request.AmountGoal,
+                AmountRaised = 0,
+                DateCreated = DateTime.Now,
+                EndDate = request.EndDate,
+                Status = DonationStatus.Active,
+                UserId = request.UserId
+            });
+
+            return Ok(result);
         }
     }
 }
