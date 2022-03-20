@@ -39,6 +39,7 @@ namespace Donations.API.Controllers
         [HttpGet("get-by-userId/{userId}")]
         [Authorize]
         [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetByUserId(int userId)
         {
             var donations = await _donationRepository.GetByUserIdAsync(userId);
@@ -52,7 +53,7 @@ namespace Donations.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddDonation(DonationRequest request)
         {
-            var result = await _donationRepository.AddDonationAsync(new Donation
+           var result = await _donationRepository.AddDonationAsync(new Donation
             {
                 Description = request.Description,
                 AmountGoal = request.AmountGoal,
