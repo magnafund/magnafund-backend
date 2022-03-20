@@ -45,5 +45,19 @@ namespace Donations.API.Models.Repository
                 return new Result<Donation>(false, new List<string>() { "Failed to create. Try again!" });
             }
         }
+
+        public async Task<Result<Donation>> UpdateDonationAsync(Donation donation)
+        {
+            try
+            {
+                _context.Update(donation);
+                await _context.SaveChangesAsync();
+                return new Result<Donation>(donation, new List<string>() { "Donation updated succesfully!"});
+            }
+            catch (Exception)
+            {
+                return new Result<Donation>(false, new List<string>() { "Failed to update. Try again!" });
+            }
+        }
     }
 }
