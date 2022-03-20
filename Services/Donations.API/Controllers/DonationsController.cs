@@ -5,6 +5,7 @@ using Donations.API.Models.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ModelLibrary;
 
 namespace Donations.API.Controllers
 {
@@ -20,7 +21,7 @@ namespace Donations.API.Controllers
         }
 
         [HttpGet("get-all-donations")]
-        [ProducesResponseType(typeof(IEnumerable<Donation>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
             var donations = await _donationRepository.GetAllAsync();
@@ -30,6 +31,8 @@ namespace Donations.API.Controllers
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddDonation(DonationRequest request)
         {
             var result = await _donationRepository.AddDonationAsync(new Donation
