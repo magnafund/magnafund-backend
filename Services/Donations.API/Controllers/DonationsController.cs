@@ -9,7 +9,7 @@ using ModelLibrary;
 
 namespace Donations.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class DonationsController : ControllerBase
     {
@@ -28,6 +28,24 @@ namespace Donations.API.Controllers
             return Ok(donations);
         }
 
+        [HttpGet("get-by-id/{id}")]
+        [ProducesResponseType(typeof(Result<Donation>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var donation = await _donationRepository.GetByIdAsync(id);
+            return Ok(donation);
+        }
+
+        [HttpGet("get-by-userId/{userId}")]
+        [Authorize]
+        [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetByUserId(int userId)
+        {
+            var donations = await _donationRepository.GetByUserIdAsync(userId);
+            return Ok(donations);
+        }
+
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
@@ -35,7 +53,7 @@ namespace Donations.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddDonation(DonationRequest request)
         {
-            var result = await _donationRepository.AddDonationAsync(new Donation
+           var result = await _donationRepository.AddDonationAsync(new Donation
             {
                 Description = request.Description,
                 AmountGoal = request.AmountGoal,
