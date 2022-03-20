@@ -9,7 +9,7 @@ using ModelLibrary;
 
 namespace Donations.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class DonationsController : ControllerBase
     {
@@ -34,6 +34,15 @@ namespace Donations.API.Controllers
         {
             var donation = await _donationRepository.GetByIdAsync(id);
             return Ok(donation);
+        }
+
+        [HttpGet("get-by-userId/{userId}")]
+        [Authorize]
+        [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetByUserId(int userId)
+        {
+            var donations = await _donationRepository.GetByUserIdAsync(userId);
+            return Ok(donations);
         }
 
         [HttpPost]

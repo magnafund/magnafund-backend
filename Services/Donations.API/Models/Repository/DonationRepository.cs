@@ -25,6 +25,12 @@ namespace Donations.API.Models.Repository
             return new Result<Donation>(donation!);
         }
 
+        public async Task<Result<IEnumerable<Donation>>> GetByUserIdAsync(int userId)
+        {
+            var donations = await _context.Donations!.Where(x => x.UserId == userId).ToListAsync();
+            return new Result<IEnumerable<Donation>>(donations);
+        }
+
         public async Task<Result<Donation>> AddDonationAsync(Donation donation)
         {
             try
