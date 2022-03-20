@@ -28,6 +28,14 @@ namespace Donations.API.Controllers
             return Ok(donations);
         }
 
+        [HttpGet("get-by-id/{id}")]
+        [ProducesResponseType(typeof(Result<Donation>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var donation = await _donationRepository.GetByIdAsync(id);
+            return Ok(donation);
+        }
+
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]

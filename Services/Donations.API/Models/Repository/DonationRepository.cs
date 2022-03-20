@@ -19,6 +19,12 @@ namespace Donations.API.Models.Repository
             return new Result<IEnumerable<Donation>>(donations);
         }
 
+        public async Task<Result<Donation>> GetByIdAsync(int id)
+        {
+            var donation = await _context.Donations!.SingleOrDefaultAsync();
+            return new Result<Donation>(donation!);
+        }
+
         public async Task<Result<Donation>> AddDonationAsync(Donation donation)
         {
             try
