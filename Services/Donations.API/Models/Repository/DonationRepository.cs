@@ -13,5 +13,10 @@ namespace Donations.API.Models.Repository
         }
 
         public async Task<IEnumerable<Donation>> GetAllAsync() => await _context.Donations!.ToListAsync();
+
+        public async Task<Donation> AddDonationAsync(Donation donation)
+        {
+            return null;
+        }
     }
 }
