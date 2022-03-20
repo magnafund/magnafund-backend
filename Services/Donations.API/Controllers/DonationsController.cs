@@ -68,5 +68,25 @@ namespace Donations.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("update-donation")]
+        [Authorize]
+        [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateDonation(UpdateDonationRequest request)
+        {
+            var result = await _donationRepository.UpdateDonationAsync(new Donation
+            {
+                Id = request.Id,
+                Description = request.Description,
+                AmountGoal = request.AmountGoal,
+                EndDate = request.EndDate
+            });
+
+            if (!result.Success) return BadRequest(result);
+
+            return Ok(result);
+        }
     }
 }
