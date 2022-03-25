@@ -96,7 +96,8 @@ namespace Donations.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> RevokeDonation(int id)
         {
-            return null;
+            var result = await _donationRepository.RevokeDonationAsync(id);
+            return Ok(result);
         }
     }
 }

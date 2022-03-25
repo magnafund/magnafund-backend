@@ -9,5 +9,6 @@ namespace Donations.API.Models.Repository
         Task<Result<IEnumerable<Donation>>> GetByUserIdAsync(int userId);
         Task<Result<Donation>> AddDonationAsync(Donation donation);
         Task<Result<Donation>> UpdateDonationAsync(Donation donation);
+        Task<Result<Donation>> RevokeDonationAsync(int id);
     }
 }
