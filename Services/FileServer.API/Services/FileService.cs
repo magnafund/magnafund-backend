@@ -17,7 +17,7 @@ namespace FileServer.API.Services
             {
                 string basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\Files\\");
                 string fileName = Path.GetFileName(file.FileName);
-                string newFileName = string.Concat($"cf-{DateTime.Now.Date}", fileName);
+                string newFileName = string.Concat($"cf-{DateTime.Now.Ticks}", fileName);
                 string filePath = string.Concat($"{basePath}", newFileName);
 
                 string url = $"{_configuration["Urls:DevBaseUrl"]}/Files/{newFileName}";
