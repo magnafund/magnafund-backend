@@ -1,4 +1,5 @@
-﻿using Donations.API.Models.Data;
+﻿using Donations.API.Enums;
+using Donations.API.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using ModelLibrary;
 
@@ -58,6 +59,16 @@ namespace Donations.API.Models.Repository
             {
                 return new Result<Donation>(false, new List<string>() { "Failed to update. Try again!" });
             }
+        }
+
+        public async Task<Result<Donation>> RevokeDonationAsync(int id)
+        {
+            var donation = await _context.Donations!.Where(x => x.Id == id).FirstOrDefaultAsync();
+            await _context.SaveChangesAsync();
+            donation!.Status = DonationStatus.Blocked;
+            _context.Donations!.Update(donation);
+
+            return new Result<Donation>(donation);
         }
     }
 }

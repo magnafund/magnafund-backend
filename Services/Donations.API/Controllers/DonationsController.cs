@@ -88,5 +88,16 @@ namespace Donations.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("revoke-donation/{id}")]
+        [Authorize]
+        [ProducesResponseType(typeof(Result<Donation>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> RevokeDonation(int id)
+        {
+            var result = await _donationRepository.RevokeDonationAsync(id);
+            return Ok(result);
+        }
     }
 }
