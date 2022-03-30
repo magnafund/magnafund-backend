@@ -79,6 +79,7 @@ namespace Donations.API.Controllers
             var result = await _donationRepository.UpdateDonationAsync(new Donation
             {
                 Id = request.Id,
+                Title = request.Title,
                 Description = request.Description,
                 AmountGoal = request.AmountGoal,
                 EndDate = request.EndDate
