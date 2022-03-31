@@ -41,5 +41,20 @@ namespace Donations.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("update-category")]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryRequest request)
+        {
+            var result = await _donationCategoryRepository.UpdateAsync(new Category
+            {
+                Id = request.Id,
+                CategoryName = request?.CategoryName,
+                DateModified = DateTime.Now
+            });
+
+            if (!result.Success) return BadRequest(result);
+
+            return Ok(result);
+        }
     }
 }

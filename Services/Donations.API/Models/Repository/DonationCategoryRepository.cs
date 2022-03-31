@@ -45,9 +45,24 @@ namespace Donations.API.Models.Repository
             return new Result<Category>(category!);
         }
 
-        public Task<Result<Category>> UpdateAsync(Category category)
+        public async Task<Result<Category>> UpdateAsync(Category category)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var categoryObject = (await GetByIdAsync(category.Id)).Data;
+
+                categoryObject!.CategoryName = category.CategoryName;
+                categoryObject!.DateModified = category.DateModified;
+
+                _context.Categories!.Update(categoryObject);
+                await _context.SaveChangesAsync();
+
+                return new Result<Category>(category);
+            }
+            catch (Exception)
+            {
+                return new Result<Category>(false, new List<string> { "Failed to update category! Try again" });
+            }
         }
     }
 }
