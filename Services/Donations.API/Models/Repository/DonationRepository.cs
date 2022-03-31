@@ -87,5 +87,11 @@ namespace Donations.API.Models.Repository
 
             return new Result<Donation>(donation);
         }
+
+        public async Task<Result<IEnumerable<Donation>>> GetTopDonationsAsync()
+        {
+            var donations = await _context.Donations!.OrderByDescending(x => x.AmountRaised).Take(5).ToListAsync();
+            return new Result<IEnumerable<Donation>>(donations);
+        }
     }
 }
