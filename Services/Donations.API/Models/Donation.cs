@@ -16,5 +16,6 @@ namespace Donations.API.Models
         public DateTime DateCreated { get; set; }
         public DateTime EndDate { get; set; }
         public DonationStatus Status { get; set; }
+        public string? ImageUrl { get; set; } 
     }
 }
