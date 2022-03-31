@@ -29,7 +29,8 @@ namespace FileServer.API.Services
                 return new Result<FileResponse>(new FileResponse
                 {
                     FileName = newFileName,
-                    Url = url
+                    Url = url,
+                    Path = filePath
                 });
             }
             catch (Exception ex)
