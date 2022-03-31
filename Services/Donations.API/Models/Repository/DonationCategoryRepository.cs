@@ -1,12 +1,31 @@
-﻿using ModelLibrary;
+﻿using Donations.API.Models.Data;
+using Microsoft.EntityFrameworkCore;
+using ModelLibrary;
 
 namespace Donations.API.Models.Repository
 {
     public class DonationCategoryRepository : IDonationCategoryRepository
     {
-        public Task<Result<Category>> AddAsync(Category category)
+        private readonly ApplicationDbContext _context;
+
+        public DonationCategoryRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task<Result<Category>> AddAsync(Category category)
+        {
+            try
+            {
+                await _context.AddAsync(category);
+                await _context.SaveChangesAsync();
+             
+                return new Result<Category>(category, new List<string>() { "Category created succesfully!" });
+            }
+            catch (Exception)
+            {
+                return new Result<Category>(false, new List<string>() { "Failed to create. Try again!" });
+            }
         }
 
         public Task<Result<bool>> DeleteAsync(int id)
@@ -14,9 +33,10 @@ namespace Donations.API.Models.Repository
             throw new NotImplementedException();
         }
 
-        public Task<Result<IEnumerable<Category>>> GetAllAsync()
+        public async Task<Result<IEnumerable<Category>>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var categories = await _context.Categories!.ToListAsync();
+            return new Result<IEnumerable<Category>>(categories);
         }
 
         public Task<Result<Category>> GetByIdAsync(int id)
