@@ -39,9 +39,10 @@ namespace Donations.API.Models.Repository
             return new Result<IEnumerable<Category>>(categories);
         }
 
-        public Task<Result<Category>> GetByIdAsync(int id)
+        public async Task<Result<Category>> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var category = await _context.Categories!.SingleOrDefaultAsync(x => x.Id == id);
+            return new Result<Category>(category!);
         }
 
         public Task<Result<Category>> UpdateAsync(Category category)

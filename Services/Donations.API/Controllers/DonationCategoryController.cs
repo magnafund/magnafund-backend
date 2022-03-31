@@ -20,6 +20,13 @@ namespace Donations.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var result = await _donationCategoryRepository.GetByIdAsync(id);
+            return Ok(result);
+        }
+
         [HttpPost("add-category")]
         public async Task<IActionResult> AddCategory(CategoryRequest request)
         {
