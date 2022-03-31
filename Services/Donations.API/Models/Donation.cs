@@ -1,4 +1,5 @@
 ﻿using Donations.API.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Donations.API.Models
 {
@@ -6,6 +7,7 @@ namespace Donations.API.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
+        public int CategoryId { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
         public double AmountRaised { get; set; }
