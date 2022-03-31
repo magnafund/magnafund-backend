@@ -1,5 +1,6 @@
 using Donations.API.Models.Data;
 using Donations.API.Models.Repository;
+using Donations.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -9,12 +10,15 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient<IFileService, FileService>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IDonationRepository, DonationRepository>();
 builder.Services.AddScoped<IDonationCategoryRepository, DonationCategoryRepository>();
 
+builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
