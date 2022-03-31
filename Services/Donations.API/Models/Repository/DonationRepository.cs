@@ -22,13 +22,22 @@ namespace Donations.API.Models.Repository
 
         public async Task<Result<Donation>> GetByIdAsync(int id)
         {
-            var donation = await _context.Donations!.SingleOrDefaultAsync();
+            var donation = await _context.Donations!.Where(x => x.Id == id).SingleOrDefaultAsync();
             return new Result<Donation>(donation!);
         }
 
         public async Task<Result<IEnumerable<Donation>>> GetByUserIdAsync(int userId)
         {
             var donations = await _context.Donations!.Where(x => x.UserId == userId).ToListAsync();
+            return new Result<IEnumerable<Donation>>(donations);
+        }
+
+        public async Task<Result<IEnumerable<Donation>>> GetByCategoryIdAsync(List<int> categoryIds)
+        {
+            var donations = await _context.Donations!
+                                          .Where(x => categoryIds.Any(id => id == x.CategoryId))
+                                          .ToListAsync();
+
             return new Result<IEnumerable<Donation>>(donations);
         }
 
@@ -51,9 +60,17 @@ namespace Donations.API.Models.Repository
         {
             try
             {
-                _context.Update(donation);
+                var donationObject = (await GetByIdAsync(donation.Id)).Data;
+                donationObject!.ShortDescription = donation.ShortDescription;
+                donationObject!.AmountGoal = donation.AmountGoal;
+                donationObject!.Description = donation.Description;
+                donationObject!.EndDate = donation.EndDate;
+                donationObject!.Title = donation.Title;
+                donationObject!.CategoryId = donation.CategoryId;
+
+                _context.Update(donationObject!);
                 await _context.SaveChangesAsync();
-                return new Result<Donation>(donation, new List<string>() { "Donation updated succesfully!"});
+                return new Result<Donation>(donationObject!, new List<string>() { "Donation updated succesfully!"});
             }
             catch (Exception)
             {

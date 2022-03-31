@@ -2,6 +2,7 @@
 using Donations.API.Models;
 using Donations.API.Models.Data;
 using Donations.API.Models.Repository;
+using Donations.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,12 @@ namespace Donations.API.Controllers
     public class DonationsController : ControllerBase
     {
         private readonly IDonationRepository _donationRepository;
+        private readonly IFileService _fileService;
 
-        public DonationsController(IDonationRepository donationRepository)
+        public DonationsController(IDonationRepository donationRepository, IFileService fileService)
         {
             _donationRepository = donationRepository;
+            _fileService = fileService;
         }
 
         [HttpGet("get-all-donations")]
@@ -46,6 +49,16 @@ namespace Donations.API.Controllers
             return Ok(donations);
         }
 
+        [HttpPost("get-by-category-Id")]
+        [Authorize]
+        [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetByCategoryId(List<int> categoryIds)
+        {
+            var result = await _donationRepository.GetByCategoryIdAsync(categoryIds);
+            return Ok(result);
+        }
+
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
@@ -53,9 +66,12 @@ namespace Donations.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddDonation(DonationRequest request)
         {
-           var result = await _donationRepository.AddDonationAsync(new Donation
+            var result = await _donationRepository.AddDonationAsync(new Donation
             {
+                CategoryId = request.CategoryId,
+                ShortDescription = request.ShortDescription,
                 Description = request.Description,
+                Title = request.Title,
                 AmountGoal = request.AmountGoal,
                 AmountRaised = 0,
                 DateCreated = DateTime.Now,
@@ -79,15 +95,27 @@ namespace Donations.API.Controllers
             var result = await _donationRepository.UpdateDonationAsync(new Donation
             {
                 Id = request.Id,
+                ShortDescription = request.ShortDescription,
+                CategoryId = request.CategoryId,
                 Title = request.Title,
                 Description = request.Description,
                 AmountGoal = request.AmountGoal,
-                EndDate = request.EndDate
+                EndDate = request.EndDate,
             });
 
             if (!result.Success) return BadRequest(result);
 
             return Ok(result);
+        }
+
+        [HttpPut("update-donation/image")]
+        [Authorize]
+        [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateDonation(int donationId, IFormFile image)
+        {
+            await _fileService.
         }
 
         [HttpPost("revoke-donation/{id}")]
