@@ -59,6 +59,16 @@ namespace Donations.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("get-top-donations")]
+        [Authorize]
+        [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetTop()
+        {
+            var result = await _donationRepository.GetTopDonationsAsync();
+            return Ok(result);
+        }
+
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
