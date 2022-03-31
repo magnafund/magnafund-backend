@@ -22,7 +22,7 @@ namespace Donations.API.Models.Repository
 
         public async Task<Result<Donation>> GetByIdAsync(int id)
         {
-            var donation = await _context.Donations!.SingleOrDefaultAsync();
+            var donation = await _context.Donations!.Where(x => x.Id == id).SingleOrDefaultAsync();
             return new Result<Donation>(donation!);
         }
 
