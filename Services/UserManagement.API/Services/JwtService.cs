@@ -24,10 +24,11 @@ namespace UserManagement.API.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim("UserId", account.Id.ToString()),
                     new Claim(ClaimTypes.Name, account.BeneficiaryName!),
                     new Claim(ClaimTypes.Email, account.Email!)
                 }),
-                Expires = DateTime.Now.AddDays(7),
+                Expires = DateTime.Now.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
