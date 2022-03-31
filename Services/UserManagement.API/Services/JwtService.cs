@@ -28,7 +28,7 @@ namespace UserManagement.API.Services
                     new Claim(ClaimTypes.Name, account.BeneficiaryName!),
                     new Claim(ClaimTypes.Email, account.Email!)
                 }),
-                Expires = DateTime.Now.AddMinutes(30),
+                Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
