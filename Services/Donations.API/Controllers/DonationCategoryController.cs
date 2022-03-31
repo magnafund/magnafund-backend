@@ -4,7 +4,7 @@ namespace Donations.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class DonationCategoryController : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> AddCategory()
