@@ -2,6 +2,7 @@
 using Donations.API.Models;
 using Donations.API.Models.Data;
 using Donations.API.Models.Repository;
+using Donations.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,12 @@ namespace Donations.API.Controllers
     public class DonationsController : ControllerBase
     {
         private readonly IDonationRepository _donationRepository;
+        private readonly IFileService _fileService;
 
-        public DonationsController(IDonationRepository donationRepository)
+        public DonationsController(IDonationRepository donationRepository, IFileService fileService)
         {
             _donationRepository = donationRepository;
+            _fileService = fileService;
         }
 
         [HttpGet("get-all-donations")]
@@ -103,6 +106,16 @@ namespace Donations.API.Controllers
             if (!result.Success) return BadRequest(result);
 
             return Ok(result);
+        }
+
+        [HttpPut("update-donation/image")]
+        [Authorize]
+        [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateDonation(int donationId, IFormFile image)
+        {
+            await _fileService.
         }
 
         [HttpPost("revoke-donation/{id}")]
