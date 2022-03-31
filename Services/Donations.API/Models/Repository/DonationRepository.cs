@@ -32,6 +32,15 @@ namespace Donations.API.Models.Repository
             return new Result<IEnumerable<Donation>>(donations);
         }
 
+        public async Task<Result<IEnumerable<Donation>>> GetByCategoryIdAsync(List<int> categoryIds)
+        {
+            var donations = await _context.Donations!
+                                          .Where(x => categoryIds.Any(id => id == x.CategoryId))
+                                          .ToListAsync();
+
+            return new Result<IEnumerable<Donation>>(donations);
+        }
+
         public async Task<Result<Donation>> AddDonationAsync(Donation donation)
         {
             try

@@ -46,6 +46,16 @@ namespace Donations.API.Controllers
             return Ok(donations);
         }
 
+        [HttpPost("get-by-category-Id")]
+        [Authorize]
+        [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetByCategoryId(List<int> categoryIds)
+        {
+            var result = await _donationRepository.GetByCategoryIdAsync(categoryIds);
+            return Ok(result);
+        }
+
         [HttpPost]
         [Authorize]
         [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
