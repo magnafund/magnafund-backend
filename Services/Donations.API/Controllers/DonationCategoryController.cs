@@ -7,10 +7,10 @@ namespace Donations.API.Controllers
     [ApiController]
     public class DonationCategoryController : ControllerBase
     {
-        [HttpPost("add-category")]
-        public async Task<IActionResult> AddCategory(CategoryRequest request)
-        {
-            //var result = await _
-        }
+        //[HttpPost("add-category")]
+        //public async Task<IActionResult> AddCategory(CategoryRequest request)
+        //{
+        //    //var result = await _
+        //}
     }
 }
