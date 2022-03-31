@@ -20,7 +20,7 @@ namespace FileServer.API.Services
                 string newFileName = string.Concat($"cf-{DateTime.Now.Ticks}", fileName);
                 string filePath = string.Concat($"{basePath}", newFileName);
 
-                string url = $"{_configuration["Urls:DevBaseUrl"]}/Files/{newFileName}";
+                string url = $"{_configuration["Urls:LiveBaseUrl"]}/Files/{newFileName}";
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(stream);
