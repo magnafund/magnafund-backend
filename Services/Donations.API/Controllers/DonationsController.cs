@@ -60,7 +60,6 @@ namespace Donations.API.Controllers
         }
 
         [HttpGet("get-top-donations")]
-        [Authorize]
         [ProducesResponseType(typeof(Result<IEnumerable<Donation>>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetTop()
@@ -118,15 +117,16 @@ namespace Donations.API.Controllers
             return Ok(result);
         }
 
-        //[HttpPut("update-donation/image")]
-        //[Authorize]
-        //[ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        //public async Task<IActionResult> UpdateDonation(int donationId, IFormFile image)
-        //{
-        //    await _fileService.
-        //}
+        [HttpPut("update-donation/image")]
+        [Authorize]
+        [ProducesResponseType(typeof(Donation), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<string>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> UpdateDonation(int donationId, IFormFile image)
+        {
+            //var fileResponse = await _fileService.UploadFileAsync(file);
+            return null;
+        }
 
         [HttpPost("revoke-donation/{id}")]
         [Authorize]
