@@ -9,6 +9,7 @@ namespace Donations.API.Models
         public int UserId { get; set; }
         public int CategoryId { get; set; }
         public string? Title { get; set; }
+        public string? ShortDescription { get; set; }
         public string? Description { get; set; }
         public double AmountRaised { get; set; }
         public double AmountGoal { get; set; }

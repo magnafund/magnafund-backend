@@ -63,9 +63,12 @@ namespace Donations.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> AddDonation(DonationRequest request)
         {
-           var result = await _donationRepository.AddDonationAsync(new Donation
+            var result = await _donationRepository.AddDonationAsync(new Donation
             {
+                CategoryId = request.CategoryId,
+                ShortDescription = request.ShortDescription,
                 Description = request.Description,
+                Title = request.Title,
                 AmountGoal = request.AmountGoal,
                 AmountRaised = 0,
                 DateCreated = DateTime.Now,
