@@ -92,10 +92,12 @@ namespace Donations.API.Controllers
             var result = await _donationRepository.UpdateDonationAsync(new Donation
             {
                 Id = request.Id,
+                ShortDescription = request.ShortDescription,
+                CategoryId = request.CategoryId,
                 Title = request.Title,
                 Description = request.Description,
                 AmountGoal = request.AmountGoal,
-                EndDate = request.EndDate
+                EndDate = request.EndDate,
             });
 
             if (!result.Success) return BadRequest(result);

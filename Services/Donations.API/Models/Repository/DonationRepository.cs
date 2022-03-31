@@ -60,9 +60,17 @@ namespace Donations.API.Models.Repository
         {
             try
             {
-                _context.Update(donation);
+                var donationObject = (await GetByIdAsync(donation.Id)).Data;
+                donationObject!.ShortDescription = donation.ShortDescription;
+                donationObject!.AmountGoal = donation.AmountGoal;
+                donationObject!.Description = donation.Description;
+                donationObject!.EndDate = donation.EndDate;
+                donationObject!.Title = donation.Title;
+                donationObject!.CategoryId = donation.CategoryId;
+
+                _context.Update(donationObject!);
                 await _context.SaveChangesAsync();
-                return new Result<Donation>(donation, new List<string>() { "Donation updated succesfully!"});
+                return new Result<Donation>(donationObject!, new List<string>() { "Donation updated succesfully!"});
             }
             catch (Exception)
             {
