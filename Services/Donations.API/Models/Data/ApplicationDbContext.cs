@@ -10,5 +10,6 @@ namespace Donations.API.Models.Data
         }
 
         public DbSet<Donation>? Donations { get; set; }
+        public DbSet<Category>? Categories { get; set; }
     }
 }
