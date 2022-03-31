@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Donations.API.Models.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Donations.API.Controllers
 {
@@ -6,10 +7,10 @@ namespace Donations.API.Controllers
     [ApiController]
     public class DonationCategoryController : ControllerBase
     {
-        [HttpPost]
-        public async Task<IActionResult> AddCategory()
+        [HttpPost("add-category")]
+        public async Task<IActionResult> AddCategory(CategoryRequest request)
         {
-
+            //var result = await _
         }
     }
 }

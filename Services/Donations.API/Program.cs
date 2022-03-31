@@ -13,6 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IDonationRepository, DonationRepository>();
+builder.Services.AddScoped<IDonationCategoryRepository, DonationCategoryRepository>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
