@@ -93,5 +93,16 @@ namespace Donations.API.Models.Repository
             var donations = await _context.Donations!.OrderByDescending(x => x.AmountRaised).Take(5).ToListAsync();
             return new Result<IEnumerable<Donation>>(donations);
         }
+
+        public async Task<Result<Donation>> UpdateÌmageAsync(Donation donation)
+        {
+            var response = await _context.Donations!.Where(x => x.Id == donation.Id).FirstOrDefaultAsync();
+            response!.ImageUrl = donation.ImageUrl;
+            
+            _context.Update(response);
+            await _context.SaveChangesAsync();
+
+            return new Result<Donation>(response);
+        }
     }
 }
