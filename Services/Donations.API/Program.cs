@@ -16,9 +16,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IDonationRepository, DonationRepository>();
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
 builder.Services.AddScoped<IDonationCategoryRepository, DonationCategoryRepository>();
 
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<IPaynowService, PaynowService>();
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
