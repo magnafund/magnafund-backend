@@ -8,6 +8,7 @@ namespace ModelLibrary
 {
     public class Result<T>
     {
+        public Result() { }
         public Result(T Data)
         {
             this.Data = Data;

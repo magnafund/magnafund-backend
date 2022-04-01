@@ -11,6 +11,7 @@ namespace Donations.API.Models.Repository
         Task<Result<IEnumerable<Donation>>> GetTopDonationsAsync();
         Task<Result<Donation>> AddDonationAsync(Donation donation);
         Task<Result<Donation>> UpdateDonationAsync(Donation donation);
+        Task<Result<Donation>> UpdateÌmageAsync(Donation donation);
         Task<Result<Donation>> RevokeDonationAsync(int id);
     }
 }

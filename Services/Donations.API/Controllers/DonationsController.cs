@@ -123,8 +123,15 @@ namespace Donations.API.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> UpdateDonation(int donationId, IFormFile image)
         {
-            //var fileResponse = await _fileService.UploadFileAsync(file);
-            return null;
+            var fileResponse = await _fileService.UploadFileAsync(image);
+
+            var result = await _donationRepository.UpdateÌmageAsync(new Donation
+            {
+                Id =donationId,
+                ImageUrl = fileResponse.Data!.Url
+            });
+
+            return Ok(result);
         }
 
         [HttpPost("revoke-donation/{id}")]
