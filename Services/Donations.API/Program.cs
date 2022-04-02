@@ -1,6 +1,7 @@
 using Donations.API.Models.Data;
 using Donations.API.Models.Repository;
 using Donations.API.Services;
+using Donations.API.Utility;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -21,6 +22,9 @@ builder.Services.AddScoped<IDonationCategoryRepository, DonationCategoryReposito
 
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IPaynowService, PaynowService>();
+
+builder.Services.AddAutoMapper(typeof(Mappings));
+
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
