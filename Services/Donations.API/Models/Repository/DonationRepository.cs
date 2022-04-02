@@ -97,6 +97,9 @@ namespace Donations.API.Models.Repository
         public async Task<Result<Donation>> UpdateÌmageAsync(Donation donation)
         {
             var response = await _context.Donations!.Where(x => x.Id == donation.Id).FirstOrDefaultAsync();
+
+            if (response == null) return new Result<Donation>(false, new List<string> { "Oops! Donation does not exist." });
+
             response!.ImageUrl = donation.ImageUrl;
             
             _context.Update(response);
