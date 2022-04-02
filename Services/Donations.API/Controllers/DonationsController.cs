@@ -124,12 +124,14 @@ namespace Donations.API.Controllers
         public async Task<IActionResult> UpdateDonation(int donationId, IFormFile image)
         {
             var fileResponse = await _fileService.UploadFileAsync(image);
+            if (!fileResponse.Success) return BadRequest(fileResponse);
 
             var result = await _donationRepository.UpdateÌmageAsync(new Donation
             {
                 Id =donationId,
                 ImageUrl = fileResponse.Data!.Url
             });
+            if (!result.Success) return BadRequest(result);
 
             return Ok(result);
         }
