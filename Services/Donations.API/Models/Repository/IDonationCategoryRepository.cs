@@ -1,4 +1,5 @@
-﻿using ModelLibrary;
+﻿using Donations.API.Models.Data;
+using ModelLibrary;
 
 namespace Donations.API.Models.Repository
 {
@@ -7,7 +8,7 @@ namespace Donations.API.Models.Repository
         Task<Result<IEnumerable<Category>>> GetAllAsync();
         Task<Result<Category>> GetByIdAsync(int id);
         Task<Result<Category>> AddAsync(Category category);
-        Task<Result<Category>> UpdateAsync(Category category);
+        Task<Result<Category>> UpdateAsync(UpdateCategoryRequest category);
         Task<Result<bool>> DeleteAsync(int id);
     }
 }

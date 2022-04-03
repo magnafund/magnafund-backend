@@ -1,4 +1,5 @@
-﻿using Donations.API.Models.Data;
+﻿using AutoMapper;
+using Donations.API.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using ModelLibrary;
 
@@ -7,10 +8,12 @@ namespace Donations.API.Models.Repository
     public class DonationCategoryRepository : IDonationCategoryRepository
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public DonationCategoryRepository(ApplicationDbContext context)
+        public DonationCategoryRepository(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public async Task<Result<Category>> AddAsync(Category category)
@@ -45,19 +48,17 @@ namespace Donations.API.Models.Repository
             return new Result<Category>(category!);
         }
 
-        public async Task<Result<Category>> UpdateAsync(Category category)
+        public async Task<Result<Category>> UpdateAsync(UpdateCategoryRequest category)
         {
             try
             {
-                var categoryObject = (await GetByIdAsync(category.Id)).Data;
+                var categoryInDb = (await GetByIdAsync(category.Id)).Data;
 
-                categoryObject!.CategoryName = category.CategoryName;
-                categoryObject!.DateModified = category.DateModified;
-
-                _context.Categories!.Update(categoryObject);
+                categoryInDb = _mapper.Map<Category>(category);
+                _context.Categories!.Update(categoryInDb);
                 await _context.SaveChangesAsync();
 
-                return new Result<Category>(category);
+                return new Result<Category>(categoryInDb);
             }
             catch (Exception)
             {

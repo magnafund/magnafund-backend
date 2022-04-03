@@ -1,4 +1,5 @@
-﻿using Donations.API.Models;
+﻿using AutoMapper;
+using Donations.API.Models;
 using Donations.API.Models.Data;
 using Donations.API.Models.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -10,8 +11,13 @@ namespace Donations.API.Controllers
     public class DonationCategoryController : ControllerBase
     {
         private readonly IDonationCategoryRepository _donationCategoryRepository;
+        private readonly IMapper _mapper;
 
-        public DonationCategoryController(IDonationCategoryRepository donationCategoryRepository) => _donationCategoryRepository = donationCategoryRepository;
+        public DonationCategoryController(IDonationCategoryRepository donationCategoryRepository, IMapper mapper)
+        {
+            _donationCategoryRepository = donationCategoryRepository;
+            _mapper = mapper;
+        }
 
         [HttpGet]
         public async Task<IActionResult> Get()
@@ -45,12 +51,7 @@ namespace Donations.API.Controllers
         [HttpPut("update-category")]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryRequest request)
         {
-            var result = await _donationCategoryRepository.UpdateAsync(new Category
-            {
-                Id = request.Id,
-                CategoryName = request?.CategoryName,
-                DateModified = DateTime.Now
-            });
+            var result = await _donationCategoryRepository.UpdateAsync(request);
 
             if (!result.Success) return BadRequest(result);
 
