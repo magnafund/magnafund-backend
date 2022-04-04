@@ -39,6 +39,9 @@
     <None Update="Files\cf-637846640979678565logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Files\cf-637846762590442455360_F_388451856_XOOUDIrBLBzctlxbhHbJ9KTLdRFQg2s3.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
