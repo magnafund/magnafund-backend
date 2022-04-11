@@ -1,5 +1,6 @@
 ﻿using FileServer.API.Services;
 using Microsoft.AspNetCore.Mvc;
+using ModelLibrary;
 
 namespace FileServer.API.Controllers
 {
@@ -12,6 +13,8 @@ namespace FileServer.API.Controllers
         public FilesController(IFileService fileService) => _fileService = fileService;
 
         [HttpPost("upload-file")]
+        [ProducesResponseType(typeof(Result<FileResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Result<FileResponse>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UploadFileAsync(IFormFile file)
         {
             var result = await _fileService.UploadFileAsync(file);
